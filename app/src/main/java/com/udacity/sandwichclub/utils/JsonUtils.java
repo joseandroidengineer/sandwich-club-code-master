@@ -12,6 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JsonUtils {
+    private static final String NAME_KEY = "name";
+    private static final String MAIN_NAME_KEY = "mainName";
+    private static final String ALSO_KNOWN_AS_KEY = "alsoKnownAs";
+    private static final String PLACE_OF_ORIGIN_KEY = "placeOfOrigin";
+    private static final String DESCRIPTION_KEY = "description";
+    private static final String IMAGE_KEY = "image";
+    private static final String INGREDIENTS_KEY = "ingredients";
+
+
 
     public static Sandwich parseSandwichJson(String json) {
         JSONObject jsonObject = null;
@@ -27,72 +36,33 @@ public class JsonUtils {
     }
 
     private static JSONObject getJsonNameObject(JSONObject jsonObject){
-        JSONObject jsonNameObject = null;
-        try {
-            jsonNameObject = jsonObject.getJSONObject("name");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonNameObject;
+        return jsonObject.optJSONObject(NAME_KEY);
     }
 
     private static String getJsonMainName(JSONObject jsonNameObject){
-        String mainName = null;
-        try {
-            mainName = jsonNameObject.getString("mainName");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return mainName;
+        return jsonNameObject.optString(MAIN_NAME_KEY);
     }
     private static List<String> getJsonAlsoKnownAs(JSONObject jsonNameObject){
-        JSONArray alsoKnownAs = null;
-        try {
-            alsoKnownAs = jsonNameObject.getJSONArray("alsoKnownAs");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        JSONArray alsoKnownAs = jsonNameObject.optJSONArray(ALSO_KNOWN_AS_KEY);
         ArrayList<String> alsoKnownAsArrayList = (ArrayList<String>) getListFromJsonArray(alsoKnownAs);
         return alsoKnownAsArrayList;
     }
 
     private static String getPlaceOfOriginJson(JSONObject jsonObject){
-        String placeOfOrigin = null;
-        try {
-            placeOfOrigin = jsonObject.getString("placeOfOrigin");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return placeOfOrigin;
+        return jsonObject.optString(PLACE_OF_ORIGIN_KEY);
     }
 
     private static String getDescriptionJson(JSONObject jsonObject){
-        String description = null;
-        try {
-            description = jsonObject.getString("description");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return description;
+        return jsonObject.optString(DESCRIPTION_KEY);
     }
 
     private static String getImageJson(JSONObject jsonObject){
-        String image = null;
-        try {
-            image = jsonObject.getString("image");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return image;
+        return jsonObject.optString(IMAGE_KEY);
     }
 
     private static List<String> getIngredientsJson(JSONObject jsonObject){
         JSONArray ingredients = null;
-        try {
-            ingredients = jsonObject.getJSONArray("ingredients");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        ingredients = jsonObject.optJSONArray(INGREDIENTS_KEY);
         ArrayList<String> ingredientsArrayList = (ArrayList<String>) getListFromJsonArray(ingredients);
         return ingredientsArrayList;
     }
